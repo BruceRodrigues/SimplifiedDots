@@ -9,6 +9,7 @@ import java.util.HashMap;
  */
 public class Cell {
 	protected HashMap<Stripe, Boolean> _stripes;
+	protected char _name;
 	
 	public Cell() {
 		_stripes = new HashMap<Stripe, Boolean>();
@@ -16,6 +17,7 @@ public class Cell {
 		_stripes.put(Stripe.RIGHT, false);
 		_stripes.put(Stripe.DOWN, false);
 		_stripes.put(Stripe.LEFT, false);
+		_name = ' ';
 	}
 
 	public Cell(Cell cell) {
@@ -24,6 +26,7 @@ public class Cell {
 		_stripes.put(Stripe.RIGHT, cell._stripes.get(Stripe.RIGHT));
 		_stripes.put(Stripe.DOWN, cell._stripes.get(Stripe.DOWN));
 		_stripes.put(Stripe.LEFT, cell._stripes.get(Stripe.LEFT));
+		_name = cell._name;
 	}
 
 	/**
@@ -43,9 +46,18 @@ public class Cell {
 
 	/**
 	 * Mark one of the sides of the cell.
-	 * One side can be marked more than once!
+	 * If after a mark the cell is filled, the char 'name' is set.
 	 */
-	public void mark(Stripe s) {
+	public void mark(Stripe s, char name) {
+		 if(isFilled()) return;
 		 if(_stripes.containsKey(s)) _stripes.put(s, true);
+		 if(isFilled()) _name = name;
+	}
+
+	/**
+	 * Returns the name marked in the cell (if none, returns ' ').
+	 */
+	public char getName() {
+		return _name;
 	}
 }
