@@ -14,6 +14,10 @@ public class Position {
 	public int x() { return _x; }
 	public int y() { return _y; }
 	
+	public Position relativePosition(int xOffset, int yOffset) {
+		return new Position(_x + xOffset, _y + yOffset);
+	}
+	
 	public boolean equals(Object obj) {
 		if(!(obj instanceof Position))
 			return false;

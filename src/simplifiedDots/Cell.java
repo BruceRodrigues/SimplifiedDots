@@ -8,7 +8,7 @@ import java.util.HashMap;
  * A cell is a representation of four dots.
  */
 public class Cell {
-	HashMap<Stripe, Boolean> _stripes;
+	protected HashMap<Stripe, Boolean> _stripes;
 	
 	public Cell() {
 		_stripes = new HashMap<Stripe, Boolean>();
@@ -16,6 +16,14 @@ public class Cell {
 		_stripes.put(Stripe.RIGHT, false);
 		_stripes.put(Stripe.DOWN, false);
 		_stripes.put(Stripe.LEFT, false);
+	}
+
+	public Cell(Cell cell) {
+		_stripes = new HashMap<Stripe, Boolean>();
+		_stripes.put(Stripe.UP, cell._stripes.get(Stripe.UP));
+		_stripes.put(Stripe.RIGHT, cell._stripes.get(Stripe.RIGHT));
+		_stripes.put(Stripe.DOWN, cell._stripes.get(Stripe.DOWN));
+		_stripes.put(Stripe.LEFT, cell._stripes.get(Stripe.LEFT));
 	}
 
 	/**
