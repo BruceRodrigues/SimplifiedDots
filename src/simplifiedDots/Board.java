@@ -35,10 +35,10 @@ public class Board {
 	 * This method returns true if the stripe is marked.
 	 * It returns false if the stripe already exists or the position is invalid (invalid move).
 	 */
-	public boolean mark(Position p, Stripe s) {
+	public boolean mark(Position p, Stripe s, char name) {
 		if(!_isValidMove(p, s)) return false;
-		_cells.get(p).mark(s);
-		_markNeighbors(p, s);
+		_cells.get(p).mark(s, name);
+		_markNeighbors(p, s, name);
 		return true;
 	}
 	
@@ -55,28 +55,28 @@ public class Board {
 	/**
 	 * Auxiliary method to mark the neighbor cell stripe.
 	 */
-	private void _markNeighbors(Position p, Stripe s) {
+	private void _markNeighbors(Position p, Stripe s, char name) {
 		Position pp;
 		switch(s) {
 		case UP:
 			pp = p.relativePosition(0, -1);
 			if(!_isValidMove(pp, Stripe.DOWN)) return;
-			_cells.get(pp).mark(Stripe.DOWN);
+			_cells.get(pp).mark(Stripe.DOWN, name);
 			break;
 		case RIGHT:
 			pp = p.relativePosition(+1, 0);
 			if(!_isValidMove(pp, Stripe.LEFT)) return;
-			_cells.get(pp).mark(Stripe.LEFT);
+			_cells.get(pp).mark(Stripe.LEFT, name);
 			break;
 		case DOWN:
 			pp = p.relativePosition(0, +1);
 			if(!_isValidMove(pp, Stripe.UP)) return;
-			_cells.get(pp).mark(Stripe.UP);
+			_cells.get(pp).mark(Stripe.UP, name);
 			break;
 		case LEFT:
 			pp = p.relativePosition(-1, 0);
 			if(!_isValidMove(pp, Stripe.RIGHT)) return;
-			_cells.get(pp).mark(Stripe.RIGHT);
+			_cells.get(pp).mark(Stripe.RIGHT, name);
 			break;
 		}
 	}
@@ -87,5 +87,15 @@ public class Board {
 	public Cell getCell(Position p) {
 		if(!_cells.containsKey(p)) return null;
 		return new Cell(_cells.get(p));
+	}
+	
+	/**
+	 * Verify if all cells in board are filled.
+	 */
+	public boolean allCellsFilled() {
+		for(Cell c : _cells.values()) {
+			if(!c.isFilled()) return false;
+		}
+		return true;
 	}
 }
