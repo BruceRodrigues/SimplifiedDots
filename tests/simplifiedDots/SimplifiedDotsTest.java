@@ -14,7 +14,44 @@ public class SimplifiedDotsTest {
 			fail();
 		}
 	}
-	
+
+	@Test
+	public void test2x2Game() {
+		TestSimplifiedDotsGameObserver gameObserver = new TestSimplifiedDotsGameObserver();
+		SimplifiedDotsGame game = new SimplifiedDotsGame(2);
+		game.addObserver(gameObserver);
+		Player player1 = new Player();
+		Player player2 = new Player();
+		game.addPlayer(player1);
+		game.addPlayer(player2);
+		
+		assertEquals(gameObserver.gamePoints(player1), 0);
+		assertEquals(gameObserver.gamePoints(player2), 0);
+		assertFalse(gameObserver.gameIsOver());
+		
+		_play(game, player1, new Position(0, 0), Stripe.UP);
+		_play(game, player2, new Position(0, 0), Stripe.DOWN);
+		_play(game, player1, new Position(1, 0), Stripe.RIGHT);
+		_play(game, player2, new Position(1, 0), Stripe.UP);
+		_play(game, player1, new Position(1, 1), Stripe.RIGHT);
+		_play(game, player2, new Position(1, 1), Stripe.DOWN);
+		_play(game, player1, new Position(0, 1), Stripe.DOWN);
+		_play(game, player2, new Position(1, 0), Stripe.DOWN);
+		_play(game, player1, new Position(0, 0), Stripe.LEFT);
+		_play(game, player2, new Position(0, 0), Stripe.RIGHT);
+		
+		assertEquals(gameObserver.gamePoints(player1), 0);
+		assertEquals(gameObserver.gamePoints(player2), 2);
+		assertFalse(gameObserver.gameIsOver());
+		
+		_play(game, player2, new Position(0, 1), Stripe.LEFT);
+		_play(game, player1, new Position(0, 1), Stripe.RIGHT);
+
+		assertEquals(gameObserver.gamePoints(player1), 2);
+		assertEquals(gameObserver.gamePoints(player2), 2);
+		assertTrue(gameObserver.gameIsOver());
+	}
+
 	@Test
 	public void testInvalidMovesInGame() {
 		SimplifiedDotsGame game = new SimplifiedDotsGame(2);
