@@ -1,6 +1,7 @@
 package simplifiedDots;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The simplified dots game board.
@@ -98,4 +99,41 @@ public class Board {
 		}
 		return true;
 	}
+	
+	public int size() {
+		return this._size;
+	}
+	
+	private void setCells(HashMap<Position,Cell> cells) {
+		this._cells = cells;
+	}
+	
+	@Override
+	public String toString() {
+		String string = "";
+		for (Map.Entry<Position,Cell> entry : this._cells.entrySet()) {
+			string += "x: "+entry.getKey().x() + " - y: "+entry.getKey().y() +" "+
+					"UP: "+entry.getValue().isFilled(Stripe.UP)+" "+
+					"RIGHT: "+entry.getValue().isFilled(Stripe.RIGHT)+" "+
+					"LEFT: "+entry.getValue().isFilled(Stripe.LEFT)+" "+
+					"DOWN: "+entry.getValue().isFilled(Stripe.DOWN)+"\n";
+		}
+		return string;
+	}
+	
+	@Override
+	public Board clone(){
+		HashMap<Position,Cell> newHash = new HashMap<Position,Cell>();
+		for (Map.Entry<Position,Cell> entry : this._cells.entrySet()) {
+			Position position = entry.getKey();
+			Cell cell = entry.getValue();
+			Position newPosition = new Position(position.x(),position.y());
+			Cell newCell = new Cell(cell);
+			newHash.put(newPosition, newCell);
+		}
+		Board newBoard = new Board(this._size);
+		newBoard.setCells(newHash);
+		return newBoard;
+	}
+	
 }

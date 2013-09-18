@@ -1,47 +1,25 @@
 package simplifiedDots;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Frame {
 	
-	
-	public List<HashMap<Position,Cell>> createAllPossibilities(HashMap<Position,Cell> initialPosition) {
-		List<HashMap<Position,Cell>> possibilities = new ArrayList<>();
-		
-		for (int i = 0; i < 4; i++) {
-			for (Map.Entry<Position,Cell> entry : initialPosition.entrySet()) {
-				Cell cell = entry.getValue().clone();
-				Position position = entry.getKey();
-				if(!cell.isFilled()) {
-					switch(i) {
-					case 0:
-						if(!cell.isFilled(Stripe.UP)) {
-							HashMap<Position,Cell> possibility = new HashMap<Position,Cell>(initialPosition);
-							possibility.get(position).mark(Stripe.UP, 'a');
-							possibilities.add(possibility);
-						}
-					case 1:
-						if(!cell.isFilled(Stripe.RIGHT)) {
-							HashMap<Position,Cell> possibility = new HashMap<Position,Cell>(initialPosition);
-							possibility.get(position).mark(Stripe.RIGHT, 'a');
-							possibilities.add(possibility);
-						}
-					case 2:
-						if(!cell.isFilled(Stripe.DOWN)) {
-							HashMap<Position,Cell> possibility = new HashMap<Position,Cell>(initialPosition);
-							possibility.get(position).mark(Stripe.DOWN, 'a');
-							possibilities.add(possibility);
-						}
-					case 3:
-						if(!cell.isFilled(Stripe.LEFT)) {
-							HashMap<Position,Cell> possibility = new HashMap<Position,Cell>(initialPosition);
-							possibility.get(position).mark(Stripe.LEFT, 'a');
-							possibilities.add(possibility);
-						}
+	public List<Board> createAllPossibilities(Board board) {
+		List<Board> possibilities = new ArrayList<>();
+		for (int i = 0; i < board.size(); i++) {
+			for (int j = 0; j < board.size(); j++) {
+				for (int pos = 0; pos < 4; pos++) {
+					Board cloneBoard = board.clone();
+					Stripe stripe = Stripe.UP;
+					switch(pos) {
+						case 0: stripe = Stripe.UP; break;
+						case 1: stripe = Stripe.RIGHT; break;
+						case 2: stripe = Stripe.DOWN; break;
+						case 3: stripe = Stripe.LEFT; break;
 					}
+					cloneBoard.mark(new Position(i,j), stripe, 'x');
+					possibilities.add(cloneBoard);
 				}
 			}
 		}

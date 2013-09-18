@@ -1,65 +1,34 @@
 package simplifiedDots;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
 
 public class SimplifiedDotsCreateTreeTest {
 	
-	public class State {
-		
-		public HashMap<Position,Cell> p = new HashMap<Position,Cell>();
-		
-		State(HashMap<Position,Cell> p ) { this.p = p;}
-		
-		public Cell getFirst() { 
-			Collection<Cell> l = p.values();
-			Object[] c = l.toArray();
-			return (Cell)c[0];
-		}
-		
-		public Cell getLast() { 
-			Collection<Cell> l = p.values();
-			Object[] c = l.toArray();
-			return (Cell)c[99];
-		}
-		
-	}
 
 	@Test
 	public void test() {
 		
-		//start
-		HashMap<Position,Cell> p = new HashMap<Position,Cell>();
-		for(int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				Cell c = new Cell();
-				Position pos = new Position(i,j);
-				p.put(pos, c);
-			}
-		}
-		State state = new State(p);
-		Node root = new Node(state);
-		Tree t = new Tree(root);
-		Frame frame = new Frame();
-		List<HashMap<Position,Cell>> list = frame.createAllPossibilities(p);
-		for (HashMap<Position,Cell> h : list) {
-			State s = new State(h);
-			Node n = new Node(s);
-			root.addChild(n);
-		}
+		Board b = new Board(2);
+		Frame f = new Frame();
+		List<Board> l = f.createAllPossibilities(b);
 		
-		//At this point, the tree should have all the possibilities from the initial position
-		assertTrue(root.getTotalChildren() == 100);
-		Cell a = ((State)root.getChild(0).getElement()).getFirst();
-		Cell b = ((State)root.getChild(99).getElement()).getLast();
-		assertTrue(a.isFilled(Stripe.UP));
-		assertTrue(b.isFilled());
+		for (Board bo : l) {
+			System.out.println(bo.toString());
+		}
+		assertTrue(l.get(0).getCell(new Position(0,0)).isFilled(Stripe.UP));
+		assertFalse(l.get(0).getCell(new Position(0,0)).isFilled(Stripe.RIGHT));
+		assertFalse(l.get(0).getCell(new Position(0,0)).isFilled(Stripe.LEFT));
+		assertFalse(l.get(0).getCell(new Position(0,0)).isFilled(Stripe.DOWN));
 		
+		assertFalse(l.get(l.size()-1).getCell(new Position(1,1)).isFilled(Stripe.UP));
+		assertFalse(l.get(l.size()-1).getCell(new Position(1,1)).isFilled(Stripe.RIGHT));
+		assertTrue(l.get(l.size()-1).getCell(new Position(1,1)).isFilled(Stripe.LEFT));
+		assertFalse(l.get(l.size()-1).getCell(new Position(1,1)).isFilled(Stripe.DOWN));
 		
 	}
 
