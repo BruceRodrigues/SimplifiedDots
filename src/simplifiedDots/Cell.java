@@ -60,4 +60,9 @@ public class Cell {
 	public char getName() {
 		return _name;
 	}
+	
+	@Override
+	public Cell clone(){
+		return new Cell(this);
+	}
 }
