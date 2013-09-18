@@ -19,14 +19,15 @@ public class SimplifiedDotsTreeTest {
 		Node<Cell, Integer> nd = new Node<Cell, Integer>(d);
 		
 		Tree tree = new Tree(na);
-		na.addChildren(nb);
-		nb.addChildren(nc);
-		nb.addChildren(nd);
+		na.addChild(nb);
+		nb.addChild(nc);
+		nb.addChild(nd);
 		tree.setRoot(nb);
 		
 		for (Node<Cell, Integer> n : na.getChildren()) {
 			assertEquals(nb, n);
 		}
+		assertEquals(na, nb.getParent());
 		
 	}
 
