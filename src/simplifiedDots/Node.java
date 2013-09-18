@@ -41,11 +41,10 @@ public class Node<E,D> {
 		return this._parent;
 	}
 	
-	public void addChildren(Node node) {
+	public void addChild(Node node) {
+		node.setParent(this);
 		this._children.add(node);
-		if(this._parent != null) {
-			this._parent.setTotalChildren(this._parent.getTotalChildren()+1);
-		}
+			node.getParent().setTotalChildren(node.getParent().getTotalChildren()+1);
 	}
 	
 	public void removeChild(Node node) {
@@ -110,6 +109,5 @@ public class Node<E,D> {
 	public int getTotalChildren() {
 		return this._totalChildren;
 	}
-	
 
 }
