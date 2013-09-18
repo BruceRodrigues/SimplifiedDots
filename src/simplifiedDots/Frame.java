@@ -6,7 +6,7 @@ import java.util.List;
 public class Frame {
 	
 	public List<Board> createAllPossibilities(Board board) {
-		List<Board> possibilities = new ArrayList<>();
+		List<Board> possibilities = new ArrayList<Board>();
 		for (int i = 0; i < board.size(); i++) {
 			for (int j = 0; j < board.size(); j++) {
 				for (int pos = 0; pos < 4; pos++) {

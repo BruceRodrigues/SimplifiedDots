@@ -6,6 +6,100 @@ import org.junit.Test;
 
 public class SimplifiedDotsTest {
 
+	private void _play(SimplifiedDotsGame g, Player pl, Position p, Stripe s) {
+		assertEquals(g.currentPlayer(), pl);
+		try {
+			g.play(p, s);
+		} catch (InvalidMovementException e) {
+			fail();
+		}
+	}
+	
+	@Test
+	public void testInvalidMovesInGame() {
+		SimplifiedDotsGame game = new SimplifiedDotsGame(2);
+		Player player1 = new Player();
+		game.addPlayer(player1);
+		
+		_play(game, player1, new Position(0, 0), Stripe.DOWN);
+		try {
+			game.play(new Position(0, 0), Stripe.DOWN);
+			fail();
+		} catch (InvalidMovementException e) {
+		} catch (Exception e) {
+			fail();
+		}
+		
+		try {
+			game.play(new Position(0, 1), Stripe.UP);
+			fail();
+		} catch (InvalidMovementException e) {
+		} catch (Exception e) {
+			fail();
+		}
+	}
+
+	
+	@Test
+	public void testGame() {
+		TestSimplifiedDotsGameObserver gameObserver = new TestSimplifiedDotsGameObserver();
+		SimplifiedDotsGame game = new SimplifiedDotsGame(1);
+		game.addObserver(gameObserver);
+		Player player1 = new Player();
+		Player player2 = new Player();
+		game.addPlayer(player1);
+		game.addPlayer(player2);
+		
+		assertEquals(gameObserver.gamePoints(player1), 0);
+		assertEquals(gameObserver.gamePoints(player2), 0);
+		assertFalse(gameObserver.gameIsOver());
+		
+		/*
+		 *  * *
+		 *       
+		 *  * *
+		 */
+		_play(game, player1, new Position(0, 0), Stripe.UP);
+		
+		/*
+		 *  *-*
+		 *    
+		 *  * *
+		 */
+		assertEquals(game.currentPlayer(), player2);
+		try {
+			game.play(new Position(0, 0), Stripe.UP);
+			fail();
+		} catch (InvalidMovementException e) {
+		} catch (Exception e) {
+			fail();
+		}
+		_play(game, player2, new Position(0, 0), Stripe.LEFT);
+
+		/*
+		 *  *-*
+		 *  |  
+		 *  * *
+		 */
+		_play(game, player1, new Position(0, 0), Stripe.DOWN);
+
+		/*
+		 *  *-*
+		 *  |  
+		 *  *-*
+		 */
+		_play(game, player2, new Position(0, 0), Stripe.RIGHT);
+
+		/*
+		 *  *-*
+		 *  |B|
+		 *  *-*
+		 */
+		assertEquals(gameObserver.gamePoints(player1), 0);
+		assertEquals(gameObserver.gamePoints(player2), 1);
+		assertTrue(gameObserver.gameIsOver());
+	}
+	
 	@Test
 	public void testBoard() {
 		Board b = new Board(2); // 2x2 board

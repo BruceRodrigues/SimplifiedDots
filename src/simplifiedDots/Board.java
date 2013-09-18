@@ -89,6 +89,22 @@ public class Board {
 		if(!_cells.containsKey(p)) return null;
 		return new Cell(_cells.get(p));
 	}
+
+	/**
+	 * Return a copy of the cell next to the one in position p, in the side s.
+	 */
+	public Cell getCellNextTo(Position p, Stripe s) {
+		if(!_cells.containsKey(p)) return null;
+		Position pp = null;
+		switch(s) {
+		case UP: pp = p.relativePosition(0, -1); break;
+		case RIGHT: pp = p.relativePosition(+1, 0); break;
+		case DOWN: pp = p.relativePosition(0, +1); break;
+		case LEFT: pp = p.relativePosition(-1, 0); break;
+		}
+		if(_cells.containsKey(pp)) return new Cell(_cells.get(pp));
+		else return new Cell();
+	}
 	
 	/**
 	 * Verify if all cells in board are filled.
@@ -134,6 +150,5 @@ public class Board {
 		Board newBoard = new Board(this._size);
 		newBoard.setCells(newHash);
 		return newBoard;
-	}
-	
+	}	
 }
