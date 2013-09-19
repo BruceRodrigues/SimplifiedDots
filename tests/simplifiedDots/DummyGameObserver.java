@@ -2,12 +2,12 @@ package simplifiedDots;
 
 import java.util.HashMap;
 
-public class TestSimplifiedDotsGameObserver implements SimplifiedDotsGameObserver {
+public class DummyGameObserver implements GameObserver {
 
 	private HashMap<Player, Integer> _gamePoints;
 	private boolean _gameIsOver;
 	
-	public TestSimplifiedDotsGameObserver() {
+	public DummyGameObserver() {
 		_gameIsOver = false;
 		_gamePoints = new HashMap<Player, Integer>();
 	}

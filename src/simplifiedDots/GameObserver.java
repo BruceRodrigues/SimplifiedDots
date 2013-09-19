@@ -1,6 +1,6 @@
 package simplifiedDots;
 
-public interface SimplifiedDotsGameObserver {
+public interface GameObserver {
 	/**
 	 * When a new player is inserted, his points is initialized with 0.
 	 */

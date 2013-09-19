@@ -1,8 +1,12 @@
-package simplifiedDots;
+package simplifiedDotsIA;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import simplifiedDots.Cell;
+import simplifiedDotsIA.Node;
+import simplifiedDotsIA.Tree;
 
 public class SimplifiedDotsTreeTest {
 

@@ -9,12 +9,25 @@ import java.util.Map;
  * _cells are the board cells.
  */
 public class Board {
-	private HashMap<Position, Cell> _cells;
-	private int _size;
+	protected HashMap<Position, Cell> _cells;
+	protected int _size;
 	
 	public Board(int size) {
 		_size = size;
 		clear();
+	}
+	
+	/**
+	 * Copy constructor allows an easy board copy.
+	 */
+	public Board(Board b) {
+		_size = b._size;
+		_cells = new HashMap<Position,Cell>();
+		for (Map.Entry<Position,Cell> entry : b._cells.entrySet()) {
+			Position position = entry.getKey();
+			Cell cell = entry.getValue();
+			_cells.put(position, new Cell(cell));
+		}
 	}
 	
 	/**
@@ -120,10 +133,6 @@ public class Board {
 		return this._size;
 	}
 	
-	private void setCells(HashMap<Position,Cell> cells) {
-		this._cells = cells;
-	}
-	
 	@Override
 	public String toString() {
 		String string = "";
@@ -136,19 +145,4 @@ public class Board {
 		}
 		return string;
 	}
-	
-	@Override
-	public Board clone(){
-		HashMap<Position,Cell> newHash = new HashMap<Position,Cell>();
-		for (Map.Entry<Position,Cell> entry : this._cells.entrySet()) {
-			Position position = entry.getKey();
-			Cell cell = entry.getValue();
-			Position newPosition = new Position(position.x(),position.y());
-			Cell newCell = new Cell(cell);
-			newHash.put(newPosition, newCell);
-		}
-		Board newBoard = new Board(this._size);
-		newBoard.setCells(newHash);
-		return newBoard;
-	}	
 }

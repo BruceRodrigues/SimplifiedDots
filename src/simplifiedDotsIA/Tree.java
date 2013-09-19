@@ -1,4 +1,4 @@
-package simplifiedDots;
+package simplifiedDotsIA;
 
 public class Tree {
 	

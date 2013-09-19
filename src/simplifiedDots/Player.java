@@ -1,9 +1,8 @@
 package simplifiedDots;
 
-public class Player {
+public interface Player {
 
-	public char getInitial() {
-		return 'a';
-	}
-
+	public char getInitial();
+	public String getName();
+	public Movement getNextMovement();
 }

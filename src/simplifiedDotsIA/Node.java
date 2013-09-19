@@ -1,17 +1,16 @@
-package simplifiedDots;
+package simplifiedDotsIA;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Node<E,D> {
 	
-	
-	private Node<E, D> _parent;
-	private List<Node<E,D>> _children;
-	private D _heuristic;
-	private Integer _cost;
-	private E _element;
-	private int _totalChildren;
+	protected Node<E, D> _parent;
+	protected List<Node<E,D>> _children;
+	protected D _heuristic;
+	protected Integer _cost;
+	protected E _element;
+	protected int _totalChildren;
 	
 	public Node() {
 		this._children = new ArrayList<Node<E,D>>();

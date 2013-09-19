@@ -6,10 +6,11 @@ import org.junit.Test;
 
 public class SimplifiedDotsTest {
 
-	private void _play(SimplifiedDotsGame g, Player pl, Position p, Stripe s) {
+	private void _play(Game g, Player pl, Position p, Stripe s) {
 		assertEquals(g.currentPlayer(), pl);
 		try {
-			g.play(p, s);
+			Movement m = new Movement(p, s);
+			g.play(m);
 		} catch (InvalidMovementException e) {
 			fail();
 		}
@@ -17,11 +18,11 @@ public class SimplifiedDotsTest {
 
 	@Test
 	public void test2x2Game() {
-		TestSimplifiedDotsGameObserver gameObserver = new TestSimplifiedDotsGameObserver();
-		SimplifiedDotsGame game = new SimplifiedDotsGame(2);
+		DummyGameObserver gameObserver = new DummyGameObserver();
+		Game game = new Game(2);
 		game.addObserver(gameObserver);
-		Player player1 = new Player();
-		Player player2 = new Player();
+		Player player1 = new DummyPlayer();
+		Player player2 = new DummyPlayer();
 		game.addPlayer(player1);
 		game.addPlayer(player2);
 		
@@ -54,13 +55,14 @@ public class SimplifiedDotsTest {
 
 	@Test
 	public void testInvalidMovesInGame() {
-		SimplifiedDotsGame game = new SimplifiedDotsGame(2);
-		Player player1 = new Player();
+		Game game = new Game(2);
+		Player player1 = new DummyPlayer();
 		game.addPlayer(player1);
 		
 		_play(game, player1, new Position(0, 0), Stripe.DOWN);
 		try {
-			game.play(new Position(0, 0), Stripe.DOWN);
+			Movement m = new Movement(new Position(0, 0), Stripe.DOWN);
+			game.play(m);
 			fail();
 		} catch (InvalidMovementException e) {
 		} catch (Exception e) {
@@ -68,7 +70,8 @@ public class SimplifiedDotsTest {
 		}
 		
 		try {
-			game.play(new Position(0, 1), Stripe.UP);
+			Movement m = new Movement(new Position(0, 1), Stripe.UP);
+			game.play(m);
 			fail();
 		} catch (InvalidMovementException e) {
 		} catch (Exception e) {
@@ -79,11 +82,11 @@ public class SimplifiedDotsTest {
 	
 	@Test
 	public void testGame() {
-		TestSimplifiedDotsGameObserver gameObserver = new TestSimplifiedDotsGameObserver();
-		SimplifiedDotsGame game = new SimplifiedDotsGame(1);
+		DummyGameObserver gameObserver = new DummyGameObserver();
+		Game game = new Game(1);
 		game.addObserver(gameObserver);
-		Player player1 = new Player();
-		Player player2 = new Player();
+		Player player1 = new DummyPlayer();
+		Player player2 = new DummyPlayer();
 		game.addPlayer(player1);
 		game.addPlayer(player2);
 		
@@ -105,7 +108,8 @@ public class SimplifiedDotsTest {
 		 */
 		assertEquals(game.currentPlayer(), player2);
 		try {
-			game.play(new Position(0, 0), Stripe.UP);
+			Movement m = new Movement(new Position(0, 0), Stripe.UP);
+			game.play(m);
 			fail();
 		} catch (InvalidMovementException e) {
 		} catch (Exception e) {
