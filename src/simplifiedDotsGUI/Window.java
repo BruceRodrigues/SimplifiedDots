@@ -1,5 +1,6 @@
 package simplifiedDotsGUI;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +29,7 @@ public class Window extends JFrame {
 			@Override
 			public void run() {
 				try {
-					Window frame = new Window(10);
+					Window frame = new Window(5);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -85,6 +86,7 @@ public class Window extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
 		this.createPoints();
 		
 	}
@@ -101,7 +103,7 @@ public class Window extends JFrame {
 						Window.this.dotClick((RadioPoint)e.getSource());
 					}
 				});
-				radioPoint.setBounds(position.y() * this.OFFSET, position.x() * this.OFFSET, 25,25);
+				radioPoint.setBounds(position.y() * this.OFFSET, position.x() * this.OFFSET, 20,20);
 				this.contentPane.add(radioPoint);
 				this.points.put(position, radioPoint);
 			}
@@ -133,19 +135,21 @@ public class Window extends JFrame {
 		if(a.x() == b.x()) {
 			line.setOrientation(SwingConstants.HORIZONTAL);
 			if(a.y() < b.y()) {
-				line.setBounds(a.getBounds().x, a.getBounds().y, b.getBounds().x - a.getBounds().x, 5);
+				line.setBounds(a.getBounds().x, a.getBounds().y, b.getBounds().x - a.getBounds().x, 2);
 			} else {
-				line.setBounds(b.getBounds().x, b.getBounds().y, a.getBounds().x - b.getBounds().x, 5);
+				line.setBounds(b.getBounds().x, b.getBounds().y, a.getBounds().x - b.getBounds().x, 2);
 			}
 		} else {
 			line.setOrientation(SwingConstants.VERTICAL);
 			if(a.x() < b.x()) {
-				line.setBounds(a.getBounds().x, a.getBounds().y, 5,b.getBounds().y - a.getBounds().y);
+				line.setBounds(a.getBounds().x, a.getBounds().y, 2,b.getBounds().y - a.getBounds().y);
 			} else {
-				line.setBounds(b.getBounds().x, b.getBounds().y, 5,a.getBounds().y - b.getBounds().y);
+				line.setBounds(b.getBounds().x, b.getBounds().y, 2,a.getBounds().y - b.getBounds().y);
 			}
 		}
+		line.setForeground(Color.RED);
 		this.contentPane.add(line);
+		this.contentPane.repaint();
 		
 	}
 	
