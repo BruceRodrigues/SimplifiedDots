@@ -14,8 +14,8 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import simplifiedDots.InvalidMovementException;
 import simplifiedDots.Position;
+import simplifiedDotsControl.IControl;
 
 public class Window extends JFrame {
 
@@ -67,99 +67,93 @@ public class Window extends JFrame {
 	private int boardSize;
 	private final int OFFSET;
 	private final int WH;
-	private int chosenPoints;
 	private Position firstPoint;
 	
 	private Map<Position,RadioPoint> points;
 	
+	private IControl controller;
+	
 	public Window(int boardSize) {
-		this.chosenPoints = 0;
-		this.boardSize = boardSize;
 		this.WH = 400;
 		this.boardSize = boardSize;
 		this.OFFSET = this.WH/this.boardSize;
+		this.initComponents();
+		this.createPoints();
+	}
+	
+	private void initComponents() {
 		this.points = new HashMap<Position,RadioPoint>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 401, 402);
+		setBounds(0, 0, this.WH, this.WH);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		
-		this.createPoints();
-		
 	}
 	
+	/**
+	 * Create the board's dots.
+	 */
 	private void createPoints() {
 		for (int i = 0; i < this.boardSize; i++) {
 			for (int j = 0; j < this.boardSize; j++) {
-				Position position = new Position(j,i);
-				RadioPoint radioPoint = new RadioPoint(j,i);
+				RadioPoint radioPoint = new RadioPoint(i,j);
 				radioPoint.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						((RadioPoint)e.getSource()).setSelected(true);
-						Window.this.dotClick((RadioPoint)e.getSource());
+						Window.this.click((RadioPoint)e.getSource());
 					}
 				});
-				radioPoint.setBounds(position.y() * this.OFFSET, position.x() * this.OFFSET, 20,20);
+				radioPoint.setBounds(radioPoint.position().x() * this.OFFSET, radioPoint.position().y() * this.OFFSET, 20,20);
 				this.contentPane.add(radioPoint);
-				this.points.put(position, radioPoint);
+				this.points.put(radioPoint.position(), radioPoint);
 			}
 		}
 	}
 	
-	private void dotClick(RadioPoint dot) {
-		if(Window.this.chosenPoints == 1) {
-			
-			try {
-				this.drawLine(dot, this.points.get(this.firstPoint));
-			} catch (InvalidMovementException ex) {
-				dot.setSelected(false);
-				this.points.get(this.firstPoint).setSelected(false);
-			}
-			
-			Window.this.firstPoint = null;
+	public void addListener(IControl controller) {
+		this.controller = controller;
+	}
+	
+	private void click(RadioPoint dot) {
+		if(this.firstPoint != null) {
+			this.controller.onClick(dot.position(), this.firstPoint);
+			this.firstPoint = null;
 		} else {
-			Window.this.firstPoint = new Position (dot.x(),dot.y());
+			this.firstPoint = dot.position();
 		}
-		Window.this.chosenPoints = (Window.this.chosenPoints + 1) % 2;  
 	}
 	
-	private void drawLine(RadioPoint a, RadioPoint b) throws InvalidMovementException{
-		if(!areNeighboors(a.position(), b.position())) {
-			throw new InvalidMovementException();
-		}
+	public void invalidMovement(Position position) {
+		RadioPoint a = this.points.get(position);
+		RadioPoint b = this.points.get(this.firstPoint);
+		a.setSelected(false);
+		b.setSelected(false);
+	}
+	
+	public void drawLine(Position position) {
+		RadioPoint a = this.points.get(position);
+		RadioPoint b = this.points.get(this.firstPoint);
 		JSeparator line = new JSeparator();
 		if(a.x() == b.x()) {
-			line.setOrientation(SwingConstants.HORIZONTAL);
-			if(a.y() < b.y()) {
-				line.setBounds(a.getBounds().x, a.getBounds().y, b.getBounds().x - a.getBounds().x, 2);
-			} else {
-				line.setBounds(b.getBounds().x, b.getBounds().y, a.getBounds().x - b.getBounds().x, 2);
-			}
-		} else {
 			line.setOrientation(SwingConstants.VERTICAL);
-			if(a.x() < b.x()) {
+			if(a.y() < b.y()) {
 				line.setBounds(a.getBounds().x, a.getBounds().y, 2,b.getBounds().y - a.getBounds().y);
 			} else {
 				line.setBounds(b.getBounds().x, b.getBounds().y, 2,a.getBounds().y - b.getBounds().y);
+			}
+		} else {
+			line.setOrientation(SwingConstants.HORIZONTAL);
+			if(a.x() < b.x()) {
+				line.setBounds(a.getBounds().x, a.getBounds().y,b.getBounds().x - a.getBounds().x,2);
+			} else {
+				line.setBounds(b.getBounds().x, b.getBounds().y,a.getBounds().x - b.getBounds().x,2);
 			}
 		}
 		line.setForeground(Color.RED);
 		this.contentPane.add(line);
 		this.contentPane.repaint();
-		
 	}
 	
-	private boolean areNeighboors(Position a, Position b) {
-		if( ( (a.x()+1 == b.x()) && (a.y() == b.y() ) ) || 
-			( (a.x()-1 == b.x()) && (a.y() == b.y() ) ) || 
-			( (a.y()+1 == b.y()) && (a.x() == b.x() ) ) ||
-			( (a.y()-1 == b.y()) && (a.x() == b.x() ) ) ) {
-			return true;
-		}
-		return false;
-	}
 }
