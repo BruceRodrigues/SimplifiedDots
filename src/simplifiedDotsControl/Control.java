@@ -15,7 +15,13 @@ public class Control implements IControl{
 	
 	public Control() {
 		this.GAME_SIZE = 5;
+	}
+	
+	public void initialize() {
 		this.game = new Game(this.GAME_SIZE);
+		this.view = new Window(this.GAME_SIZE);
+		this.view.setVisible(true);
+		this.view.addListener(this);
 	}
 	
 	

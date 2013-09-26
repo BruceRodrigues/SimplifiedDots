@@ -82,6 +82,7 @@ public class Window extends JFrame {
 	}
 	
 	private void initComponents() {
+		this.setTitle("Simplified Dots");
 		this.points = new HashMap<Position,RadioPoint>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, this.WH, this.WH);
@@ -118,7 +119,9 @@ public class Window extends JFrame {
 	
 	private void click(RadioPoint dot) {
 		if(this.firstPoint != null) {
-			this.controller.onClick(dot.position(), this.firstPoint);
+//			this.controller.onClick(dot.position(), this.firstPoint);
+			//TODO test
+			this.drawLine(dot.position());
 			this.firstPoint = null;
 		} else {
 			this.firstPoint = dot.position();
@@ -136,21 +139,19 @@ public class Window extends JFrame {
 		RadioPoint a = this.points.get(position);
 		RadioPoint b = this.points.get(this.firstPoint);
 		JSeparator line = new JSeparator();
+		int x = Math.min(a.getBounds().x, b.getBounds().x);
+		int y = Math.min(a.getBounds().y, b.getBounds().y);
+		int w = 0; int h = 0;
 		if(a.x() == b.x()) {
 			line.setOrientation(SwingConstants.VERTICAL);
-			if(a.y() < b.y()) {
-				line.setBounds(a.getBounds().x, a.getBounds().y, 2,b.getBounds().y - a.getBounds().y);
-			} else {
-				line.setBounds(b.getBounds().x, b.getBounds().y, 2,a.getBounds().y - b.getBounds().y);
-			}
+			h = Math.abs(a.getBounds().y - b.getBounds().y);
+			w = 2;
 		} else {
 			line.setOrientation(SwingConstants.HORIZONTAL);
-			if(a.x() < b.x()) {
-				line.setBounds(a.getBounds().x, a.getBounds().y,b.getBounds().x - a.getBounds().x,2);
-			} else {
-				line.setBounds(b.getBounds().x, b.getBounds().y,a.getBounds().x - b.getBounds().x,2);
-			}
+			h = 2;
+			w = Math.abs(a.getBounds().x - b.getBounds().x);
 		}
+		line.setBounds(x,y,w,h);
 		line.setForeground(Color.RED);
 		this.contentPane.add(line);
 		this.contentPane.repaint();
