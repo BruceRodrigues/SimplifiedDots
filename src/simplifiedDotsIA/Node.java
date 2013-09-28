@@ -60,7 +60,7 @@ public class Node<E,D> {
 		return this._children.get(index);
 	}
 	
-	public Node getChild(int index) {
+	public Node<E, D> getChild(int index) {
 		return this._children.get(index);
 	}
 	
