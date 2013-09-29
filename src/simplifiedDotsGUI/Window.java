@@ -15,6 +15,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import simplifiedDots.Position;
+import simplifiedDotsControl.Control;
 import simplifiedDotsControl.IControl;
 
 public class Window extends JFrame {
@@ -29,8 +30,7 @@ public class Window extends JFrame {
 			@Override
 			public void run() {
 				try {
-					Window frame = new Window(5);
-					frame.setVisible(true);
+					Control c = new Control();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -75,7 +75,8 @@ public class Window extends JFrame {
 	
 	public Window(int boardSize) {
 		this.WH = 400;
-		this.boardSize = boardSize;
+		//+1 cause you have to convert number of cells to number of dots
+		this.boardSize = boardSize+1;
 		this.OFFSET = this.WH/this.boardSize;
 		this.initComponents();
 		this.createPoints();
@@ -119,10 +120,14 @@ public class Window extends JFrame {
 	
 	private void click(RadioPoint dot) {
 		if(this.firstPoint != null) {
-//			this.controller.onClick(dot.position(), this.firstPoint);
-			//TODO test
-			this.drawLine(dot.position());
-			this.firstPoint = null;
+			if(isMovimentValid(dot.position())) {
+				this.controller.onClick(dot.position(), this.firstPoint);
+				//TODO test
+	//			this.drawLine(dot.position(), this.firstPoint);
+				this.firstPoint = null;
+			} else {
+				invalidMovement(dot.position());
+			}
 		} else {
 			this.firstPoint = dot.position();
 		}
@@ -135,9 +140,9 @@ public class Window extends JFrame {
 		b.setSelected(false);
 	}
 	
-	public void drawLine(Position position) {
-		RadioPoint a = this.points.get(position);
-		RadioPoint b = this.points.get(this.firstPoint);
+	public void drawLine(Position positionA, Position positionB) {
+		RadioPoint a = this.points.get(positionA);
+		RadioPoint b = this.points.get(positionB);
 		JSeparator line = new JSeparator();
 		int x = Math.min(a.getBounds().x, b.getBounds().x);
 		int y = Math.min(a.getBounds().y, b.getBounds().y);
@@ -155,6 +160,16 @@ public class Window extends JFrame {
 		line.setForeground(Color.RED);
 		this.contentPane.add(line);
 		this.contentPane.repaint();
+	}
+	
+	public boolean isMovimentValid(Position pa) {
+		if(((pa.x() == this.firstPoint.x()+1 ) && (pa.y() == this.firstPoint.y() )) || 
+				((pa.x() == this.firstPoint.x()-1 ) && (pa.y() == this.firstPoint.y() )) ||
+				((pa.x() == this.firstPoint.x() ) && (pa.y() == this.firstPoint.y()+1 )) ||
+				((pa.x() == this.firstPoint.x() ) && (pa.y() == this.firstPoint.y()-1 ))) {
+			return true;
+		}
+		return false;
 	}
 	
 }

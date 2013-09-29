@@ -78,4 +78,8 @@ public class Game {
 	public Player currentPlayer() {
 		return _players.get(_currentPlayerIndex);
 	}
+	
+	public Cell getCell(Position p) {
+		return this._board.getCell(p);
+	}
 }
