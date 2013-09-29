@@ -24,18 +24,27 @@ public class DotToCellTest {
 		
 		assertTrue(cell.isFilled(Stripe.LEFT));
 		
+		
 		Position dot11 = new Position(1,1);
 		Position dot10 = new Position(1,0);
 		c.onClick(dot11, dot10);
 		cell = c.getCell(new Position(0,0));
 		
 		assertTrue(cell.isFilled(Stripe.RIGHT));
+		cell = c.getCell(new Position(1,0));
+		assertTrue(cell.isFilled(Stripe.LEFT));
 		
 		Position dot22 = new Position(3,3);
 		Position dot12 = new Position(2,3);
 		c.onClick(dot22, dot12);
 		cell = c.getCell(new Position(2,2));
 		assertTrue(cell.isFilled(Stripe.DOWN));
+		
+		Position dot33 = new Position(3,3);
+		Position dot32 = new Position(3,2);
+		c.onClick(dot33, dot32);
+		cell = c.getCell(new Position(2,2));
+		assertTrue(cell.isFilled(Stripe.RIGHT));
 	}
 
 }

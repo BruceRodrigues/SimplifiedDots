@@ -97,11 +97,11 @@ public class Control implements IControl{
 		} else if (a.y() == b.y()) {
 			stripe = Stripe.UP;
 		}
-		if(a.x() == this.GAME_SIZE) {
+		if(a.x() == this.GAME_SIZE && b.y() != this.GAME_SIZE) {
 			x = this.GAME_SIZE -1;
 			stripe = Stripe.RIGHT;
 		}
-		if(a.y() == this.GAME_SIZE) {
+		if(a.y() == this.GAME_SIZE && b.x() != this.GAME_SIZE) {
 			y = this.GAME_SIZE -1;
 			stripe = Stripe.DOWN;
 		}
