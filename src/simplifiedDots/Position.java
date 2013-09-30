@@ -1,10 +1,13 @@
 package simplifiedDots;
 
+import java.util.HashMap;
+
 /**
  * Position is a simple tuple (x, y). Represent the position of something.
  */
 public class Position {
 	private int _x, _y;
+	private static HashMap<Integer, Position> _positions;
 	
 	public Position(int x, int y) {
 		_x = x;
@@ -26,6 +29,15 @@ public class Position {
 	
 	@Override
 	public int hashCode() {
-		return _x * _y + _y;
+		return (_x + 1) * (_y + 1) + _y + 1;
+	}
+
+	public static Position get(int x, int y) {
+		int hashCode = (x + 1) * (y + 1) + y + 1;
+		if(_positions == null)
+			_positions = new HashMap<Integer, Position>();
+		if(!_positions.containsKey(hashCode))
+			_positions.put(hashCode, new Position(x, y));
+		return _positions.get(hashCode);
 	}
 }

@@ -98,4 +98,9 @@ public class Game {
 	public  ArrayList<Player> getPlayers() {
 		return _players;
 	}
+
+	public void print() {
+		_board.print();
+	}
+	
 }
