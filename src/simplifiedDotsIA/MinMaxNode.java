@@ -5,12 +5,14 @@ public class MinMaxNode<T> extends Node<T, Integer> {
 	protected enum MinMax { MIN, MAX };
 	protected int _visitedNodeCount;
 	
-	public MinMaxNode(Integer cost) {
+	public MinMaxNode(T element, Integer cost) {
+		super(element);
 		_cost = cost;
 		_visitedNodeCount = 0;
 	}
 
-	public MinMaxNode() {
+	public MinMaxNode(T element) {
+		super(element);
 		_cost = null;
 		_visitedNodeCount = 0;
 	}

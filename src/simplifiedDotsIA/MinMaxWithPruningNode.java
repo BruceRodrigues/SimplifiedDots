@@ -2,12 +2,12 @@ package simplifiedDotsIA;
 
 public class MinMaxWithPruningNode<T> extends MinMaxNode<T> {
 	
-	public MinMaxWithPruningNode(int i) {
-		super(i);
+	public MinMaxWithPruningNode(T element, Integer cost) {
+		super(element, cost);
 	}
 
-	public MinMaxWithPruningNode() {
-		super();
+	public MinMaxWithPruningNode(T element) {
+		super(element);
 	}
 	
 	public Integer getCost() {

@@ -20,23 +20,23 @@ public class MinMaxPruningNodeTest {
 		 *                          (  8)   (  9)  nodes 5 6
 		 */
 		MinMaxWithPruningNode<Integer> root =
-				new MinMaxWithPruningNode<Integer>();
-		MinMaxNode<Integer> rootMinMax = new MinMaxNode<Integer>();
+				new MinMaxWithPruningNode<Integer>(null);
+		MinMaxNode<Integer> rootMinMax = new MinMaxNode<Integer>(null);
 		
 		MinMaxWithPruningNode<Integer> node1 =
-				new MinMaxWithPruningNode<Integer>(6);
+				new MinMaxWithPruningNode<Integer>(null, 6);
 		MinMaxWithPruningNode<Integer> node2 =
-				new MinMaxWithPruningNode<Integer>();
+				new MinMaxWithPruningNode<Integer>(null);
 		
 		MinMaxWithPruningNode<Integer> node3 =
-				new MinMaxWithPruningNode<Integer>(5);
+				new MinMaxWithPruningNode<Integer>(null, 5);
 		MinMaxWithPruningNode<Integer> node4 =
-				new MinMaxWithPruningNode<Integer>();
+				new MinMaxWithPruningNode<Integer>(null);
 
 		MinMaxWithPruningNode<Integer> node5 =
-				new MinMaxWithPruningNode<Integer>(8);
+				new MinMaxWithPruningNode<Integer>(null, 8);
 		MinMaxWithPruningNode<Integer> node6 =
-				new MinMaxWithPruningNode<Integer>(9);
+				new MinMaxWithPruningNode<Integer>(null, 9);
 
 		root.addChild(node1);
 		root.addChild(node2);
@@ -79,12 +79,12 @@ public class MinMaxPruningNodeTest {
 		 * (  4) (  6) (  7) (  9)(  1) (  2) (  0) (  1) (  8) (  1) (  9) (  2) nodes 10 to 21
 		 */
 		MinMaxWithPruningNode<Integer> root =
-				new MinMaxWithPruningNode<Integer>();
+				new MinMaxWithPruningNode<Integer>(null);
 		
 		ArrayList<MinMaxWithPruningNode<Integer>> nodes = new ArrayList<MinMaxWithPruningNode<Integer>>();
 		nodes.add(root);
 		for(int i = 1; i <= 21; i++)
-			nodes.add(new MinMaxWithPruningNode<Integer>());
+			nodes.add(new MinMaxWithPruningNode<Integer>(null));
 
 		int[] values = {4, 6, 7, 9, 1, 2, 0, 1, 8, 1, 9, 2};
 		for(int i = 0; i < 11; i++)
@@ -129,12 +129,12 @@ public class MinMaxPruningNodeTest {
 		 *   ( 20) ( 33) (-45) ( 31)( 24) ( 25)  (-10) ( 20)  ( 46) (-25) ( 18) (-42) ( 24) (-19) ( 35) (-41)
 		 */
 		MinMaxWithPruningNode<Integer> root =
-				new MinMaxWithPruningNode<Integer>();
+				new MinMaxWithPruningNode<Integer>(null);
 		
 		ArrayList<MinMaxWithPruningNode<Integer>> nodes = new ArrayList<MinMaxWithPruningNode<Integer>>();
 		nodes.add(root);
 		for(int i = 1; i <= 30; i++)
-			nodes.add(new MinMaxWithPruningNode<Integer>());
+			nodes.add(new MinMaxWithPruningNode<Integer>(null));
 
 		int[] values = {20, 33, -45, 31, 24, 25, -10, 20, 46, -25, 18, -42, 24, -19, 35, -41};
 		for(int i = 0; i < 16; i++)

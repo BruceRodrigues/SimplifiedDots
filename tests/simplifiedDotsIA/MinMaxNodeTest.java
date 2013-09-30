@@ -15,18 +15,18 @@ public class MinMaxNodeTest {
 		 *    /     \     |      /   |   \     
 		 *  (  3) ( 10) (  4) (  5)(  6)(  7)  nodes 4 5 6 7 8 9
 		 */
-		MinMaxNode<Integer> root = new MinMaxNode<Integer>();
+		MinMaxNode<Integer> root = new MinMaxNode<Integer>(null);
 		
-		MinMaxNode<Integer> node1 = new MinMaxNode<Integer>();
-		MinMaxNode<Integer> node2 = new MinMaxNode<Integer>();
-		MinMaxNode<Integer> node3 = new MinMaxNode<Integer>();
+		MinMaxNode<Integer> node1 = new MinMaxNode<Integer>(null);
+		MinMaxNode<Integer> node2 = new MinMaxNode<Integer>(null);
+		MinMaxNode<Integer> node3 = new MinMaxNode<Integer>(null);
 		
-		MinMaxNode<Integer> node4 = new MinMaxNode<Integer>(3);
-		MinMaxNode<Integer> node5 = new MinMaxNode<Integer>(10);
-		MinMaxNode<Integer> node6 = new MinMaxNode<Integer>(4);
-		MinMaxNode<Integer> node7 = new MinMaxNode<Integer>(5);
-		MinMaxNode<Integer> node8 = new MinMaxNode<Integer>(6);
-		MinMaxNode<Integer> node9 = new MinMaxNode<Integer>(7);
+		MinMaxNode<Integer> node4 = new MinMaxNode<Integer>(null, 3);
+		MinMaxNode<Integer> node5 = new MinMaxNode<Integer>(null, 10);
+		MinMaxNode<Integer> node6 = new MinMaxNode<Integer>(null, 4);
+		MinMaxNode<Integer> node7 = new MinMaxNode<Integer>(null, 5);
+		MinMaxNode<Integer> node8 = new MinMaxNode<Integer>(null, 6);
+		MinMaxNode<Integer> node9 = new MinMaxNode<Integer>(null, 7);
 		
 		root.addChild(node1);
 		root.addChild(node2);
@@ -62,25 +62,25 @@ public class MinMaxNodeTest {
 		 *    |      /   \                   /     \      |
 		 *  ( 11)  (  7)(  3)              (  3) (  3)  (  1)
 		 */
-		MinMaxNode<Integer> root = new MinMaxNode<Integer>();
+		MinMaxNode<Integer> root = new MinMaxNode<Integer>(null);
 		
-		MinMaxNode<Integer> node1 = new MinMaxNode<Integer>();
-		MinMaxNode<Integer> node2 = new MinMaxNode<Integer>();
-		MinMaxNode<Integer> node3 = new MinMaxNode<Integer>();
+		MinMaxNode<Integer> node1 = new MinMaxNode<Integer>(null);
+		MinMaxNode<Integer> node2 = new MinMaxNode<Integer>(null);
+		MinMaxNode<Integer> node3 = new MinMaxNode<Integer>(null);
 
-		MinMaxNode<Integer> node4 = new MinMaxNode<Integer>();
-		MinMaxNode<Integer> node5 = new MinMaxNode<Integer>();
-		MinMaxNode<Integer> node6 = new MinMaxNode<Integer>(5);
-		MinMaxNode<Integer> node7 = new MinMaxNode<Integer>(2);
-		MinMaxNode<Integer> node8 = new MinMaxNode<Integer>();
-		MinMaxNode<Integer> node9 = new MinMaxNode<Integer>();
+		MinMaxNode<Integer> node4 = new MinMaxNode<Integer>(null);
+		MinMaxNode<Integer> node5 = new MinMaxNode<Integer>(null);
+		MinMaxNode<Integer> node6 = new MinMaxNode<Integer>(null, 5);
+		MinMaxNode<Integer> node7 = new MinMaxNode<Integer>(null, 2);
+		MinMaxNode<Integer> node8 = new MinMaxNode<Integer>(null);
+		MinMaxNode<Integer> node9 = new MinMaxNode<Integer>(null);
 
-		MinMaxNode<Integer> node10 = new MinMaxNode<Integer>(11);
-		MinMaxNode<Integer> node11 = new MinMaxNode<Integer>(7);
-		MinMaxNode<Integer> node12 = new MinMaxNode<Integer>(3);
-		MinMaxNode<Integer> node13 = new MinMaxNode<Integer>(3);
-		MinMaxNode<Integer> node14 = new MinMaxNode<Integer>(3);
-		MinMaxNode<Integer> node15 = new MinMaxNode<Integer>(1);
+		MinMaxNode<Integer> node10 = new MinMaxNode<Integer>(null, 11);
+		MinMaxNode<Integer> node11 = new MinMaxNode<Integer>(null, 7);
+		MinMaxNode<Integer> node12 = new MinMaxNode<Integer>(null, 3);
+		MinMaxNode<Integer> node13 = new MinMaxNode<Integer>(null, 3);
+		MinMaxNode<Integer> node14 = new MinMaxNode<Integer>(null, 3);
+		MinMaxNode<Integer> node15 = new MinMaxNode<Integer>(null, 1);
 
 		root.addChild(node1);
 		root.addChild(node2);
