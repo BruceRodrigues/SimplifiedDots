@@ -133,6 +133,41 @@ public class Board {
 		return this._size;
 	}
 	
+	public void print() {
+		Cell c;
+
+		for(int j = 0; j < _size; j++) {
+			System.out.print("*");
+			c = _cells.get(new Position(j, 0));
+			if(c.isFilled(Stripe.UP)) System.out.print("-");
+			else System.out.print(" ");
+		}
+		System.out.println("*");
+		
+		for(int i = 0; i < _size; i++) {
+			c = _cells.get(new Position(0, i));
+			if(c.isFilled(Stripe.LEFT)) System.out.print("|");
+			else System.out.print(" ");
+
+			for(int j = 0; j < _size; j++) {
+				c = _cells.get(new Position(j, i));
+				if(c.isFilled()) System.out.print(c.getName());
+				else System.out.print(" ");
+				if(c.isFilled(Stripe.RIGHT)) System.out.print("|");
+				else System.out.print(" ");
+			}
+			System.out.println();
+
+			for(int j = 0; j < _size; j++) {
+				System.out.print("*");
+				c = _cells.get(new Position(j, i));
+				if(c.isFilled(Stripe.DOWN)) System.out.print("-");
+				else System.out.print(" ");
+			}
+			System.out.println("*");
+		}
+	}
+	
 	@Override
 	public String toString() {
 		String string = "";
